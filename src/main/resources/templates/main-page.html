@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>BUYSELL</title>
+</head>
+
+<body>
+
+<h1> Announcements </h1>
+<div th:if="${user.isAdmin() == true}">
+    <a th:href="@{/avito/admin/}">to admin panel</a>
+</div>
+<div th:if="${user.getUsername() != null}">
+    <a th:href="@{/avito/users/my}">to my page</a>
+</div>
+<div th:if="${user.getUsername() != null}">
+    <h4> Name of User -  <i th:text="${user.getNameSurname()}"></i> </h4>
+    <form method="post" action="/logout">
+        <input type="submit" value="Выйти"/>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    </form>
+</div>
+
+<div th:if="${user.getUsername() == null}">
+    <form method="post" action="/login">
+        <input type="submit" value="Войти"/>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    </form>
+</div>
+<hr>
+<form method="get" action="">
+    <input type="text" name="tag"/>
+    <input type="submit" value="Sort"/>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+</form>
+<h4>Announcements from all Russia:</h4>
+<form th:each="message: ${messages}">
+    <table>
+        <td th:text="${message.getTag()}"></td>
+        <td th:text="${message.getCreationDate()}"></td>
+        <td>
+            <a th:href="@{/avito/main/message/{messageId}(messageId=${message.getId()})}"> details </a>
+        </td>
+    </table>
+    <br>
+</form>
+<hr>
+
+</body>
+
+</html>

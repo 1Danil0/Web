@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+<h3>Select User`s role</h3>
+<form action="/avito/admin/edit" method="post">
+    <div th:each="role: ${roles}">
+        <input type="checkbox" th:name="${role.name()}" th:value="${role.name()}" th:text="${role.name()}">
+    </div>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    <input type="hidden" name="userId" th:value="${user.getId()}">
+    <input type="submit" value="Save">
+</form>
+
+</body>
+</html>

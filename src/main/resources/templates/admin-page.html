@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+<h1>All users</h1>
+
+    <table border="1" th:if="${!users.isEmpty()}">
+        <tr>
+            <th>Имя</th>
+            <th>Почта</th>
+            <th>Активность</th>
+            <th>Дата регистрации</th>
+            <th>Бан/Разбан</th>
+            <th>Роли</th>
+            <th>Ссылка</th>
+            <th>Редактировать</th>
+        </tr>
+        <tr th:each="user: ${users}">
+            <td th:text="${user.getNameSurname()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.isEnabled()}"></td>
+            <td th:text="${user.getDateCreated()}"></td>
+            <td>
+                <form action="ban-unban" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="submit" value="Ban/Unban">
+                    <input type="hidden" name="userId" th:value="${user.getId()}">
+                </form>
+            </td>
+            <td>
+                <div th:each="role: ${user.getRoles()}">
+                    <i th:text="${role.name() }"> </i>
+                </div>
+            </td>
+            <td>
+                <a th:href="@{/avito/users/{id}(id=${user.getId()})}">Подробнее</a>
+            </td>
+            <td>
+                <a th:href="@{/avito/admin/edit/{id}(id=${user.getId()})}">Edit</a>
+            </td>
+        </tr>
+    </table>
+
+<div th:if="${users.isEmpty()}">
+    Пользователей нет
+</div>
+<a th:href="@{/avito/main/}"> <h4>to main menu</h4></a>
+</body>
+</html>

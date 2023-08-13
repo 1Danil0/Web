@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+
+<form th:each="image: ${images}">
+    <img th:src="@{/images/{id}(id=${image.getId()})}" height="80px"/>
+</form>
+
+<form method="post" th:object="${message}">
+    <p th:text="${message.getTag()}"></p>
+    <p th:text="${message.getCreationDate()}"></p>
+    <p th:text="${message.getPrice()}"></p>
+    <p th:text="${message.getText()}"></p>
+    <p>
+        <a th:href="@{/avito/users/{id}(id=${message.getUser().getId()})}">К владельцу</a>
+    </p>
+</form>
+<button>
+    <a th:href="@{/avito/main/}">Back</a>
+</button>
+</body>
+
+</html>

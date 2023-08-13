@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BUYSELL</title>
+</head>
+
+
+<body>
+
+<h2>Users information</h2>
+
+<div th:if="${user.getAvatar() != null}">
+    <img th:src="@{/avatar/{id}(id=${user.getAvatar().getId()})}" height="100px"/>
+</div>
+<div>
+    Имя <i th:text="${user.getNameSurname()}"></i><br>
+    Почта <i th:text="${user.getEmail()}"></i><br>
+    Зарегистрирован <i th:text="${user.getDateCreated()}"></i><br>
+    <h4>Сообщения</h4>
+    <form th:if="${!messages.isEmpty()}">
+        <table>
+            <tr>
+                <th>Тэг</th>
+                <th>Ссылка</th>
+            </tr>
+            <tr th:each="message: ${messages}">
+                <td th:text="${message.getTag()}"></td>
+                <td>
+                    <a th:href="@{/avito/main/message/{id}(id=${message.getId()})}">К товару</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form th:if="${messages.isEmpty()}">
+        <h4>Сообщений нет</h4>
+    </form>
+</div>
+<div th:if="${user.isAdmin()}">
+    <a th:href="@{/avito/admin/}"><h4>back to admin panel</h4></a>
+</div>
+<br>
+<a th:href="@{/avito/main/}"> <h4>back </h4></a>
+</body>
+
+</html>

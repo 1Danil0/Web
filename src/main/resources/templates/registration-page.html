@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+<div style="color: red" th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
+<form action="registration" method="post">
+    Enter name and Surname: <input type="text" name="nameSurname" placeholder="Name and surname"/> <br>
+    Enter login: <input type="text" name="login" placeholder="login"/><br>
+    Enter password: <input type="password" name="password" placeholder="password"/><br>
+    Enter email: <input type="email" name="email" placeholder="email"/><br>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    <input type="submit" value="Зарегистрироваться"/>
+</form>
+<a th:href="@{avito/main/}">to main page</a>
+</body>
+</html>

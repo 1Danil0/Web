@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BUYSELL</title>
+</head>
+<body>
+<div th:if="${user.isAdmin() == true}">
+    <a th:href="@{/avito/admin/}"> <h4>to admin panel</h4> </a>
+</div>
+<a th:href="@{/avito/main/}"> <h4>to main page</h4></a>
+<div th:if="${user.getAvatar() != null}">
+    <img th:src="@{/avatar/{id}(id=${user.getAvatar().getId()})}" height="150px"/>
+</div>
+    <form action="my/addPhoto" method="post" enctype="multipart/form-data">
+       Загрузить фото <input type="file" name="photo"/>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <br>
+        <input type="submit" value="load"/>
+    </form>
+
+<div th:if="${!user.getMessages().isEmpty()}">
+    <h4>Мои товары: </h4>
+    <table>
+        <tr>
+            <th>Название</th>
+            <th>Ссылка</th>
+            <th>Удалить</th>
+        </tr>
+        <tr th:each="message: ${messages}">
+            <td th:text="${message.getTag()}"></td>
+            <td>
+                <a th:href="@{/avito/main/message/{id}(id=${message.getId()})}">link</a>
+            </td>
+            <td>
+                <form th:action="@{/avito/main/my/messages/delete/{id}(id=${message.getId()})}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<div th:if="${user.getMessages().isEmpty()}">
+    <i>У вас нет объявлений</i>
+</div>
+<br>
+
+
+    <h4>Add new message:</h4>
+    <form action="/avito/main/add" method="post" enctype="multipart/form-data">
+        Enter tag<input type="text" name="tag"/>
+        <br>
+        Enter text: <input type="text" name="text"/>
+        <br>
+        Enter price: <input type="number" name="price"/>
+        <br>
+        First photo: <input type="file" name="file1"/>
+        <br>
+        Second photo: <input type="file" name="file2"/>
+        <br>
+        Third photo: <input type="file" name="file3"/>
+        <br>
+        <input type="submit" value="Add"/>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    </form>
+
+</body>
+
+</html>
