@@ -23,6 +23,8 @@ public class Message {
     private LocalDateTime creationDate;
     @Column(name = "price")
     private int price;
+    @Column(name = "city")
+    private String city;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "message")
     private Set<Image> images;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
@@ -73,6 +75,14 @@ public class Message {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public long getPreviewImage() {

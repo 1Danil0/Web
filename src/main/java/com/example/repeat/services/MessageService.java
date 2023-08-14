@@ -78,5 +78,17 @@ public class MessageService {
         }
         return userService.findByLogin(principal.getName());
     }
+    public List<Message> findByTagAndCity(String tag, String city) {
+        if (tag != null && !tag.isBlank() && !tag.isEmpty() && !city.isEmpty() && city != null && !city.isBlank()){
+            return messageRepository.findByTagAndCity(tag, city);
+        }
+        if(tag != null && !tag.isBlank() && !tag.isEmpty() && city.isEmpty()){
+            return messageRepository.findByTag(tag);
+        }
+        if((tag == null || tag.isEmpty() || tag.isBlank()) && !city.isEmpty()) {
+            return messageRepository.findByCity(city);
+        }
+        return messageRepository.findAll();
+    }
 }
 

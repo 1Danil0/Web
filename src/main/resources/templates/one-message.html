@@ -10,10 +10,11 @@
 </form>
 
 <form method="post" th:object="${message}">
-    <p th:text="${message.getTag()}"></p>
-    <p th:text="${message.getCreationDate()}"></p>
-    <p th:text="${message.getPrice()}"></p>
-    <p th:text="${message.getText()}"></p>
+   Название <p th:text="${message.getTag()}"></p>
+   Дата создания <p th:text="${message.getCreationDate()}"></p>
+   Город <p th:text="${message.getCity()}"></p>
+   Цена <p th:text="${message.getPrice()}"></p>
+   Описание <p th:text="${message.getText()}"></p>
     <p>
         <a th:href="@{/avito/users/{id}(id=${message.getUser().getId()})}">К владельцу</a>
     </p>

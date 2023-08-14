@@ -25,9 +25,12 @@ public class MainController {
 
     @GetMapping("/")
     public String findAll(@RequestParam(value = "tag", required = false) String tag,
+                          @RequestParam(name = "cities", defaultValue = "", required = false) String city,
                           Model model, Principal principal){
-        model.addAttribute("messages", messageService.findByTag(tag));
+        model.addAttribute("messages", messageService.findByTagAndCity(tag, city));
         model.addAttribute("user", messageService.findUserByPrincipal(principal));
+        model.addAttribute("cities", city);
+        model.addAttribute("tag", tag);
         return "main-page";
     }
     @GetMapping("/message/{messageId}")
