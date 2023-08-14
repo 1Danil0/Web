@@ -23,7 +23,8 @@ public class Avatar {
     @Lob
     @Column(name = "bytes", columnDefinition = "longblob")
     private byte[] bytes;
-    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Avatar() {
